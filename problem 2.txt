@@ -1,0 +1,29 @@
+problem 2
+Develop a solution for the Dining Philosopher’s problem using 
+AND-Synchronization (i.e., Parallel Semaphores SP and SV).
+
+
+    semaphore f[5] = 1;
+
+    //Create system of 5 processes / 5 Philosophers
+    cobegin: Process(0), Process(1), Process(3), Process(4)
+
+p[i]:
+Process(i){
+
+    while(1){
+        THINK;
+        grab_fork(i);
+        EAT;
+        return_fork(i);
+    }
+    
+}
+
+grab_fork(i){
+    SP(f[i], 1, 1, f[(i+1)%5], 1, 1); 
+}
+
+return_fork(i){
+    SV(f[i], 1, f[(i+1)%5], 1);
+}
